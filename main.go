@@ -54,10 +54,13 @@ func main() {
 	}
 
 	userRepo := repositories.NewUserRepository(db)
+	walletRepo := repositories.NewWalletRepository(db)
 
 	userUC := usecases.NewUserUseCase(timeoutContext, userRepo, db)
+	walletUC := usecases.NewWalletUseCase(timeoutContext, walletRepo, db)
 
 	user := c.NewUserController(userUC, httpResult)
+	waller := c.NewWalletController(walletUC, httpResult)
 
 	// Define a simple GET route
 	httpRouter.Get("/", func(w http.ResponseWriter, r *http.Request) {
@@ -66,6 +69,7 @@ func main() {
 	})
 
 	httpRouter.Post("/users", user.CreateUser)
+	httpRouter.Post("/wallets", waller.CreateWallet)
 
 	// Start the server
 	fmt.Printf("Starting %s on port %d\n", appName, portConnect)

@@ -35,7 +35,7 @@ func (u *userUseCase) CreateUser(ctx context.Context, request models.Users) erro
 
 	tx, err := u.db.Begin()
 	if err != nil {
-		log.Println("SQL error in UseCase Incident => Open Transaction", err)
+		log.Println("SQL error in UseCase CreateUser => Open Transaction", err)
 		return err
 	}
 
